@@ -1,0 +1,48 @@
+CREATE DATABASE test;
+CREATE TABLE Phones
+(
+    Department VARCHAR(40) NOT NULL,
+	PhoneOfDepartment VARCHAR(20) NOT NULL,
+	PRIMARY KEY(Department)
+);
+CREATE TABLE Addresses
+(
+    NumberOfBuilding INTEGER NOT NULL,
+    AddressOfBuilding VARCHAR(20) NOT NULL,
+	PRIMARY KEY(NumberOfBuilding)
+);
+CREATE TABLE Employee
+(
+    FullName VARCHAR(40) NOT NULL,
+    Department VARCHAR(40) NOT NULL REFERENCES Phones(Department) ON DELETE CASCADE,
+	Job VARCHAR(20) NOT NULL,
+    NumberOfBuilding INTEGER NOT NULL REFERENCES Addresses(NumberOfBuilding) ON DELETE CASCADE,
+	PRIMARY KEY(FullName)
+);
+
+
+INSERT INTO Phones(Department, PhoneOfDepartment)
+VALUES ('Финансовый отдел', '87-33-98'),
+('Отдел торгов и закупок', '85-16-89'),
+('Хозяйственный отдел', '94-54-12'),
+('Сектор доставки', '12-13-96'),
+('Производственно-технический отдел', '76-27-31'),
+('Планово-экономический отдел','96-28-32');
+
+INSERT INTO Addresses(NumberOfBuilding, AddressOfBuilding)
+VALUES (1, 'ул.Плеханова, 7'),
+(2, 'ул.Павелецкая, 34'),
+(3, 'ул.Петровская, 81'),
+(4, 'ул.Калинина, 6');
+
+INSERT INTO Employee(FullName, Department, Job, NumberOfBuilding)
+VALUES ('Иванова Ирина Алексеевна', 'Отдел торгов и закупок', 'экономист', 1),
+('Шивченко Анатолий Кириллович', 'Финансовый отдел', 'начальник', 1),
+('Клопова Марина Ивановна', 'Хозяйственный отдел', 'зам.начальника', 2),
+('Сторожева Виктория Андреевна', 'Сектор доставки', 'кладовщик', 4),
+('Юсупов Кирилл Сергеевич', 'Производственно-технический отдел', 'инженер', 3),
+('Васина Ольга Юрьевна', 'Планово-экономический отдел', 'экономист', 2);
+
+SELECT * FROM Phones;
+SELECT * FROM Addresses;
+SELECT * FROM Employee;
